@@ -24,7 +24,13 @@ Route::get('/checkoutsuccess', 'CheckoutController@success')
 
 Route::prefix('admin')
   ->namespace('Admin')
+  ->middleware(['auth', 'admin'])
   ->group(function () {
     Route::get('/', 'DashboardController@index')
       ->name('dashboard');
+
+    Route::resource('travel-package', 'TravelPackageController');
+    Route::resource('gallery', 'GalleryController');
   });
+
+Auth::routes(['verify' => true]);
